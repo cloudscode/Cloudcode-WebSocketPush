@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cloudcode.push.hndler;
 
 import java.io.IOException;
@@ -17,10 +12,6 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.cloudcode.push.utils.Constants;
 
-/**
- *
- * @author dayu
- */
 @Component
 public class SystemWebSocketHandler implements WebSocketHandler {
     private static final ArrayList<WebSocketSession> users=new ArrayList<WebSocketSession>();
@@ -41,15 +32,16 @@ public class SystemWebSocketHandler implements WebSocketHandler {
 		 Thread.sleep(16000);
 		send(wss,wsm);
     }
-public void send(WebSocketSession wss,WebSocketMessage<?> wsm) throws IOException{
-	 TextMessage returnMessage = new TextMessage(wsm.getPayload()
-				+ "测试成功！！！");
-		wss.sendMessage(returnMessage);
-}
+	public void send(WebSocketSession wss,WebSocketMessage<?> wsm) throws IOException{
+		 TextMessage returnMessage = new TextMessage(wsm.getPayload()
+					+ "测试成功！！！");
+			wss.sendMessage(returnMessage);
+	}
   //  @Override
     public void handleTransportError(WebSocketSession wss, Throwable thrwbl) throws Exception {
         if(wss.isOpen()){
             wss.close();
+            users.remove(wss);
         }
        System.out.println("websocket connection closed......");
     }
@@ -57,6 +49,7 @@ public void send(WebSocketSession wss,WebSocketMessage<?> wsm) throws IOExceptio
    // @Override
     public void afterConnectionClosed(WebSocketSession wss, CloseStatus cs) throws Exception {
         System.out.println("websocket connection closed......");
+        users.remove(wss);
     }
 
   //  @Override

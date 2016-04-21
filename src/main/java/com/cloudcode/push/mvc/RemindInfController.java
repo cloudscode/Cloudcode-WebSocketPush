@@ -32,7 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
 @Controller
-@RequestMapping({ "/remind" })
+@RequestMapping({ "/remindInf" })
 public class RemindInfController extends CrudController<RemindInf> {
 	@Autowired
 	private RemindInfDao remindInfDao;
@@ -103,10 +103,10 @@ public class RemindInfController extends CrudController<RemindInf> {
 		return null;
 	}
 
-	@RequestMapping(value = "futuresTypeList")
-	public ModelAndView futuresTypeList() {
+	@RequestMapping(value = "toRemindInf")
+	public ModelAndView toRemindInf() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("classpath:com/cloudcode/futures/ftl/list.ftl");
+		modelAndView.setViewName("classpath:com/cloudcode/push/ftl/remind/list.ftl");
 		modelAndView.addObject("result", "cloudcode");
 		return modelAndView;
 	}
@@ -114,7 +114,7 @@ public class RemindInfController extends CrudController<RemindInf> {
 	@RequestMapping(value = "create")
 	public ModelAndView create() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("classpath:com/cloudcode/futures/ftl/detail.ftl");
+		modelAndView.setViewName("classpath:com/cloudcode/push/ftl/remind/detail.ftl");
 		modelAndView.addObject("result", "cloudcode");
 		modelAndView.addObject("entityAction", "create");
 		return modelAndView;
@@ -124,7 +124,7 @@ public class RemindInfController extends CrudController<RemindInf> {
 	public ModelAndView update(@PathVariable("id") String id) {
 		RemindInf futuresType =null;// remindInfDao.loadObject(id);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("classpath:com/cloudcode/futures/ftl/detail.ftl");
+		modelAndView.setViewName("classpath:com/cloudcode/push/ftl/remind/detail.ftl");
 		modelAndView.addObject("futuresType", futuresType);
 		modelAndView.addObject("result", "cloudcode");
 		modelAndView.addObject("entityAction", "update");
