@@ -20,12 +20,12 @@
             }
             //websocket = new SockJS("http://localhost:8080/cloudcode/sockjs/websck");
             ws.onopen = function () {
-                alert('open');
+                //alert('open');
                 //setConnected(true);
                 //log('Info: connection opened.');
             };
             ws.onmessage = function (event) {
-                alert('Received:' + event.data);
+                alert( event.data);
                 //log('Received: ' + event.data);
             };
             ws.onclose = function (event) {
