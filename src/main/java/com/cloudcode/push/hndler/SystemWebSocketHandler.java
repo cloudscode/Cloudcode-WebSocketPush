@@ -23,9 +23,10 @@ public class SystemWebSocketHandler implements WebSocketHandler {
   //  @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("connect to the websocket success......");
-        System.out.println(session.getId());
+        //System.out.println(session.getId());
         users.add(session);
-        session.sendMessage(new TextMessage("Server:connected OK!"));
+        socketSessionUtils.add(session);
+        //session.sendMessage(new TextMessage("Server:connected OK!"));
     }
 
  //   @Override
@@ -47,6 +48,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         if(wss.isOpen()){
             wss.close();
             users.remove(wss);
+            socketSessionUtils.remove(wss);
         }
        System.out.println("websocket connection closed......");
     }
@@ -55,6 +57,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     public void afterConnectionClosed(WebSocketSession wss, CloseStatus cs) throws Exception {
         System.out.println("websocket connection closed......");
         users.remove(wss);
+        socketSessionUtils.remove(wss);
     }
 
   //  @Override

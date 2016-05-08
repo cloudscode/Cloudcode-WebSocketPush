@@ -21,8 +21,13 @@ public class SocketSessionUtils {
      */  
     public static void add(String id, WebSocketSession session){  
         clients.put(id, session);  
+    }
+    public static void add(WebSocketSession session){  
+        clients.put(getKey(session), session);  
     }  
-  
+    public static String getKey(WebSocketSession session){  
+    	return (String) session.getAttributes().get(Constants.WEBSOCKET_SESSIONID);
+    } 
     /** 
      * 获取一个连接 
      * @param id 
@@ -38,6 +43,9 @@ public class SocketSessionUtils {
      */  
     public static void remove(String id) throws IOException {  
         clients.remove(id);  
+    }
+    public static void remove(WebSocketSession session) throws IOException {  
+        clients.remove(getKey(session));  
     }  
     /** 
      * 判断是否有效连接 
@@ -83,4 +91,31 @@ public class SocketSessionUtils {
             clients.remove(id);  
         }  
     } 
+    public void sendMessageToUsers(TextMessage message) {
+        for (WebSocketSession user : clients.values()) {
+            try {
+                if (user.isOpen()) {
+                    user.sendMessage(message);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.error("websocket sendMessage exception: " + getKey(user));  
+                log.error(e.getMessage(), e);  
+                clients.remove(user);  
+            }
+        }
+    }
+    public void sendMessageToUser(String id, TextMessage message) {
+    		WebSocketSession user=clients.get(id);
+            try {
+                if (user.isOpen()) {
+                    user.sendMessage(message);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.error("websocket sendMessage exception: " + id);  
+                log.error(e.getMessage(), e);  
+                clients.remove(id);  
+            }
+    }
 }
