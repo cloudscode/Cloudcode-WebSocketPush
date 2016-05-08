@@ -19,7 +19,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     private static final ArrayList<WebSocketSession> users=new ArrayList<WebSocketSession>();
     
     @Autowired
-    private SocketSessionUtils socketSessionUtils;
+    public SocketSessionUtils socketSessionUtils;
   //  @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("connect to the websocket success......");

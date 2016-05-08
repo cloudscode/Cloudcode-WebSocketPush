@@ -41,10 +41,10 @@ public class SocketSessionUtils {
      * 移除一个连接 
      * @param id 
      */  
-    public static void remove(String id) throws IOException {  
+    public static void remove(String id){  
         clients.remove(id);  
     }
-    public static void remove(WebSocketSession session) throws IOException {  
+    public static void remove(WebSocketSession session) {  
         clients.remove(getKey(session));  
     }  
     /** 
@@ -118,4 +118,23 @@ public class SocketSessionUtils {
                 clients.remove(id);  
             }
     }
+    public void sendMessageToUser(WebSocketSession user, TextMessage message){
+        try {
+            if (user.isOpen()) {
+                user.sendMessage(message);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("websocket sendMessage exception: " + user);  
+            log.error(e.getMessage(), e);  
+            this.remove(user);  
+        }
+}
+	public static Map<String, WebSocketSession> getClients() {
+		return clients;
+	}
+	public static void setClients(Map<String, WebSocketSession> clients) {
+		SocketSessionUtils.clients = clients;
+	}
+    
 }
