@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.0.6.RELEASE</spring.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
 		<org.aspectj-version>1.7.4</org.aspectj-version>
 	</properties>
 
@@ -70,5 +70,15 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-websocket</artifactId>
+			<version>8.1.19.v20160209</version>
+		</dependency>
+<dependency>
+   <groupId>org.apache.tomcat.embed</groupId>
+   <artifactId>tomcat-embed-websocket</artifactId>
+   <version>7.0.52</version>
+</dependency>
 	</dependencies>
 </project>
